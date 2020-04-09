@@ -45,20 +45,25 @@
 		
 		public function ApiUpdate()
 	{
+		if($this->input->post('username')){
+			$where = array('username' => $this->input->post('username'));
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
 			$nama =  $this->input->post('nama');
 			$grup = $this->input->post('grup');
-		if ($this->form_validation->run()) {
 			$data = array(
                 'username' => $username,
                 'password' => $password,
                 'nama' => $nama,
                 'id_grup' => $grup
             );
-			$this->Mahasiswa_model->save_edit_data($data,'tm_user');
+			if ($this->Mahasiswa_model->save_edit_data($where,$data, 'tm_user')){
+				$array = array('success' => true);
+			} else {
+				$array = array('error' => false);
+			}
 			echo json_encode($array);
-		
+		}
 	}
 		
         public function index(){

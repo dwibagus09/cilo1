@@ -24,18 +24,10 @@
 		return $this->db->from('tm_grup')->get()->result();
 	}
 
-	function save_edit_data($username, $data)
+	function save_edit_data($where,$data,$table)
 {
-    $this->db->where('username', $username);
-    $berhasil = $this->db->update('tm_user', $data);
-    if($berhasil)
-    {
-        redirect('Mahasiswa?'.$id.'update=1','refresh');
-    }
-    else
-    {
-        redirect('Mahasiswa?'.$id.'update=2','refresh');
-    }
+    $this->db->where($where);
+    $this->db->update($table,$data);
 }
 	
 	function delete_data($data)
